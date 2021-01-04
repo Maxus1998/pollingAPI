@@ -12,7 +12,16 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity
  * @ApiResource(
- *          normalizationContext={"groups"={"vote_read"}}
+ *          normalizationContext={"groups"={"vote_read"}},
+ *          denormalizationContext={"groups"={"veto_write"}},
+ *          collectionOperations={
+ *              "get",
+ *              "post"
+ *          },
+ *          itemOperations={
+ *              "get",
+ *              "delete"
+ *          }
  * )
  */
 class Vote
@@ -21,19 +30,19 @@ class Vote
      * @ORM\Id()
      * @ORM\Column(type="guid")
      * @ORM\GeneratedValue(strategy="UUID")
-     * @Groups({"vote_read", "entry_read", "poll_read"})
+     * @Groups({"vote_read", "entry_read", "poll_read", "user_read"})
      */
     private string $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Poll\Entity\User", inversedBy="votes")
-     * @Groups({"vote_read", "entry_read", "poll_read"})
+     * @Groups({"vote_read", "entry_read", "poll_read", "vote_write"})
      */
     private User $user;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Poll\Entity\Entry", inversedBy="votes")
-     * @Groups({"vote_read"})
+     * @Groups({"vote_read", "user_read", "vote_write"})
      */
     private Entry $entry;
 

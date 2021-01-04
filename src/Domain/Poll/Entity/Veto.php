@@ -12,7 +12,16 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity
  * @ApiResource(
- *          normalizationContext={"groups"={"veto_read"}}
+ *          normalizationContext={"groups"={"veto_read"}},
+ *          denormalizationContext={"groups"={"veto_write"}},
+ *          collectionOperations={
+ *              "get",
+ *              "post"
+ *          },
+ *          itemOperations={
+ *              "get",
+ *              "delete"
+ *          }
  * )
  */
 class Veto
@@ -21,19 +30,19 @@ class Veto
      * @ORM\Id()
      * @ORM\Column(type="guid")
      * @ORM\GeneratedValue(strategy="UUID")
-     * @Groups({"veto_read", "entry_read", "poll_read"})
+     * @Groups({"veto_read", "entry_read", "poll_read", "user_read"})
      */
     private string $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Poll\Entity\User", inversedBy="vetos")
-     * @Groups({"veto_read", "entry_read", "poll_read"})
+     * @Groups({"veto_read", "entry_read", "poll_read", "veto_write"})
      */
     private User $user;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Poll\Entity\Entry", inversedBy="vetos")
-     * @Groups({"veto_read"})
+     * @Groups({"veto_read", "user_read", "veto_write"})
      */
     private Entry $entry;
 

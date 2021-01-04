@@ -21,7 +21,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          "post"
  *     },
  *     itemOperations={
- *          "get"
+ *          "get",
+ *          "delete"
  *     }
  * )
  */
@@ -31,13 +32,13 @@ class Poll
      * @ORM\Id()
      * @ORM\Column(type="guid")
      * @ORM\GeneratedValue(strategy="UUID")
-     * @Groups({"poll_read", "entry_read", "veto_read", "vote_read"})
+     * @Groups({"poll_read", "entry_read", "veto_read", "vote_read", "user_read"})
      */
     private string $id;
 
     /**
      * @ORM\Column
-     * @Groups({"poll_read", "entry_read", "veto_read", "vote_read", "poll_write"})
+     * @Groups({"poll_read", "entry_read", "veto_read", "vote_read", "user_read", "poll_write"})
      */
     private string $name;
 

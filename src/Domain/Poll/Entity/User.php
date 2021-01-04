@@ -13,7 +13,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity
- * @ApiResource
+ * @ApiResource(
+ *     normalizationContext={"groups"={"user_read"}},
+ *     denormalizationContext={"groups"={"user_write"}},
+ * )
  */
 class User
 {
@@ -21,33 +24,37 @@ class User
      * @ORM\Id()
      * @ORM\Column(type="guid")
      * @ORM\GeneratedValue(strategy="UUID")
-     * @Groups({"entry_read", "poll_read", "veto_read", "vote_read"})
+     * @Groups({"entry_read", "poll_read", "veto_read", "vote_read", "user_read"})
      */
     private string $id;
 
     /**
      * @ORM\Column
-     * @Groups({"entry_read", "poll_read", "veto_read", "vote_read"})
+     * @Groups({"entry_read", "poll_read", "veto_read", "vote_read", "user_read", "user_write"})
      */
     private string $name;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Domain\Poll\Entity\Poll", mappedBy="creator")
+     * @Groups({"user_read"})
      */
     private Collection $polls;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Domain\Poll\Entity\Entry", mappedBy="user")
+     * @Groups({"user_read"})
      */
     private Collection $entries;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Domain\Poll\Entity\Vote", mappedBy="user")
+     * @Groups({"user_read"})
      */
     private Collection $votes;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Domain\Poll\Entity\Veto", mappedBy="user")
+     * @Groups({"user_read"})
      */
     private Collection $vetos;
 
