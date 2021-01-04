@@ -15,6 +15,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Entity
  * @ApiResource(
  *     normalizationContext={"groups"={"poll_read"}},
+ *     denormalizationContext={"groups"={"poll_write"}},
  *     collectionOperations={
  *          "get",
  *          "post"
@@ -36,19 +37,19 @@ class Poll
 
     /**
      * @ORM\Column
-     * @Groups({"poll_read", "entry_read", "veto_read", "vote_read"})
+     * @Groups({"poll_read", "entry_read", "veto_read", "vote_read", "poll_write"})
      */
     private string $name;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Poll\Entity\User", inversedBy="polls")
-     * @Groups({"poll_read", "entry_read", "veto_read", "vote_read"})
+     * @Groups({"poll_read", "entry_read", "veto_read", "vote_read", "poll_write"})
      */
     private User $creator;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Domain\Poll\Entity\Entry", mappedBy="poll")
-     * @Groups({"poll_read"})
+     * @Groups({"poll_read", "poll_write"})
      * @var Entry[]
      */
     private Collection $entries;

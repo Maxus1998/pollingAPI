@@ -37,13 +37,13 @@ class Entry
 
     /**
      * @ORM\Column
-     * @Groups({"entry_read", "poll_read", "veto_read", "vote_read"})
+     * @Groups({"entry_read", "poll_read", "veto_read", "vote_read", "poll_write"})
      */
     public string $name;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Poll\Entity\User", inversedBy="entries")
-     * @Groups({"entry_read", "poll_read", "veto_read", "vote_read"})
+     * @Groups({"entry_read", "poll_read", "veto_read", "vote_read", "poll_write"})
      */
     private User $user;
 
