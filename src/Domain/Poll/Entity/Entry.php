@@ -6,6 +6,8 @@ namespace App\Domain\Poll\Entity;
 
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -54,13 +56,13 @@ class Entry
      * @var Vote[]
      * @ORM\OneToMany(targetEntity="App\Domain\Poll\Entity\Vote", mappedBy="entry")
      */
-    private array $votes;
+    private Collection $votes;
 
     /**
      * @var Veto[]
      * @ORM\OneToMany(targetEntity="App\Domain\Poll\Entity\Veto", mappedBy="entry")
      */
-    private array $vetos;
+    private Collection $vetos;
 
     public function getId(): string
     {
@@ -101,7 +103,7 @@ class Entry
      */
     public function getVotes(): array
     {
-        return $this->votes;
+        return $this->votes->toArray();
     }
 
     /**
@@ -109,7 +111,7 @@ class Entry
      */
     public function setVotes(array $votes): void
     {
-        $this->votes = $votes;
+        $this->votes = new ArrayCollection($votes);
     }
 
     /**
@@ -117,7 +119,7 @@ class Entry
      */
     public function getVetos(): array
     {
-        return $this->vetos;
+        return $this->vetos->toArray();
     }
 
     /**
@@ -125,6 +127,6 @@ class Entry
      */
     public function setVetos(array $vetos): void
     {
-        $this->vetos = $vetos;
+        $this->vetos = new ArrayCollection($vetos);
     }
 }

@@ -6,6 +6,8 @@ namespace App\Domain\Poll\Entity;
 
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,7 +37,7 @@ class Poll
     private string $name;
 
     /**
-     * @ORM\Column
+     * @ORM\ManyToOne(targetEntity="App\Domain\Poll\Entity\User", inversedBy="polls")
      */
     private User $creator;
 
@@ -43,7 +45,7 @@ class Poll
      * @ORM\OneToMany(targetEntity="App\Domain\Poll\Entity\Entry", mappedBy="poll")
      * @var Entry[]
      */
-    private array $entries;
+    private Collection $entries;
 
     public function getId(): string
     {
@@ -75,7 +77,7 @@ class Poll
      */
     public function getEntries(): array
     {
-        return $this->entries;
+        return $this->entries->toArray();
     }
 
     /**
@@ -83,6 +85,6 @@ class Poll
      */
     public function setEntries(array $entries): void
     {
-        $this->entries = $entries;
+        $this->entries = new ArrayCollection($entries);
     }
 }

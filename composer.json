@@ -8,6 +8,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "api-platform/core": "^2.5",
+        "coduo/php-matcher": "^5.0",
         "composer/package-versions-deprecated": "1.11.99.1",
         "doctrine/annotations": "^1.0",
         "doctrine/doctrine-bundle": "^2.2",
@@ -75,8 +76,10 @@
         }
     },
     "require-dev": {
-        "roave/security-advisories": "dev-master"
-        ,
+        "phpunit/phpunit": "^9.5",
+        "roave/security-advisories": "dev-master",
+        "symfony/browser-kit": "^5.2",
+        "symfony/css-selector": "^5.2",
         "symfony/phpunit-bridge": "^5.2"
     }
 }

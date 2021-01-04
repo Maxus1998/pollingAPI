@@ -6,6 +6,8 @@ namespace App\Domain\Poll\Entity;
 
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -32,22 +34,22 @@ class User
     /**
      * @ORM\OneToMany(targetEntity="App\Domain\Poll\Entity\Poll", mappedBy="creator")
      */
-    private array $polls;
+    private Collection $polls;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Domain\Poll\Entity\Entry", mappedBy="user")
      */
-    private array $entries;
+    private Collection $entries;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Domain\Poll\Entity\Vote", mappedBy="")
+     * @ORM\OneToMany(targetEntity="App\Domain\Poll\Entity\Vote", mappedBy="user")
      */
-    private array $votes;
+    private Collection $votes;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Domain\Poll\Entity\Veto", mappedBy="")
+     * @ORM\OneToMany(targetEntity="App\Domain\Poll\Entity\Veto", mappedBy="user")
      */
-    private array $vetos;
+    private Collection $vetos;
 
     /**
      * @return string
@@ -72,7 +74,7 @@ class User
      */
     public function getPolls(): array
     {
-        return $this->polls;
+        return $this->polls->toArray();
     }
 
     /**
@@ -80,7 +82,7 @@ class User
      */
     public function setPolls(array $polls): void
     {
-        $this->polls = $polls;
+        $this->polls = new ArrayCollection($polls);
     }
 
     /**
@@ -88,7 +90,7 @@ class User
      */
     public function getEntries(): array
     {
-        return $this->entries;
+        return $this->entries->toArray();
     }
 
     /**
@@ -96,7 +98,7 @@ class User
      */
     public function setEntries(array $entries): void
     {
-        $this->entries = $entries;
+        $this->entries = new ArrayCollection($entries);
     }
 
     /**
@@ -104,7 +106,7 @@ class User
      */
     public function getVotes(): array
     {
-        return $this->votes;
+        return $this->votes->toArray();
     }
 
     /**
@@ -112,7 +114,7 @@ class User
      */
     public function setVotes(array $votes): void
     {
-        $this->votes = $votes;
+        $this->votes = new ArrayCollection($votes);
     }
 
     /**
@@ -120,7 +122,7 @@ class User
      */
     public function getVetos(): array
     {
-        return $this->vetos;
+        return $this->vetos->toArray();
     }
 
     /**
@@ -128,6 +130,6 @@ class User
      */
     public function setVetos(array $vetos): void
     {
-        $this->vetos = $vetos;
+        $this->vetos = new ArrayCollection($vetos);
     }
 }
