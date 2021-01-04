@@ -31,36 +31,39 @@ class Entry
      * @ORM\Id()
      * @ORM\Column(type="guid")
      * @ORM\GeneratedValue(strategy="UUID")
-     * @Groups({"entry_read"})
+     * @Groups({"entry_read", "poll_read", "veto_read", "vote_read"})
      */
     private string $id;
 
     /**
      * @ORM\Column
-     * @Groups({"entry_read"})
+     * @Groups({"entry_read", "poll_read", "veto_read", "vote_read"})
      */
     public string $name;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Poll\Entity\User", inversedBy="entries")
-     * @Groups({"entry_read"})
+     * @Groups({"entry_read", "poll_read", "veto_read", "vote_read"})
      */
     private User $user;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Poll\Entity\Poll", inversedBy="entries")
+     * @Groups({"entry_read", "veto_read"})
      */
     private Poll $poll;
 
     /**
      * @var Vote[]
      * @ORM\OneToMany(targetEntity="App\Domain\Poll\Entity\Vote", mappedBy="entry")
+     * @Groups({"entry_read", "poll_read"})
      */
     private Collection $votes;
 
     /**
      * @var Veto[]
      * @ORM\OneToMany(targetEntity="App\Domain\Poll\Entity\Veto", mappedBy="entry")
+     * @Groups({"entry_read", "poll_read"})
      */
     private Collection $vetos;
 

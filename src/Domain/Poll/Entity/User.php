@@ -21,13 +21,13 @@ class User
      * @ORM\Id()
      * @ORM\Column(type="guid")
      * @ORM\GeneratedValue(strategy="UUID")
-     * @Groups({"entry_read"})
+     * @Groups({"entry_read", "poll_read", "veto_read", "vote_read"})
      */
     private string $id;
 
     /**
      * @ORM\Column
-     * @Groups({"entry_read"})
+     * @Groups({"entry_read", "poll_read", "veto_read", "vote_read"})
      */
     private string $name;
 
